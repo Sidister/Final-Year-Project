@@ -1,0 +1,78 @@
+{% load static %}
+<div class="container-fluid">
+    <div class="col-md-12">
+        <button id="primary-nav-button" type="button">Menu</button>
+        <div class="logo">
+            <a href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}" class="sawa" alt="Logo"></a>
+        </div>
+        <nav id="primary-nav" class="dropdown cf">
+            <ul class="dropdown menu">
+                <li
+                    {% if '/' == request.path %}
+                        class="nav-item active mr-3"
+                    {% else %}
+                        class="nav-item mr-3"
+                    {% endif %}
+                >
+                    <a href="{% url 'index' %}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li 
+                    {% if 'dashboard_' in request.path %}
+                        class="nav-item active mr-3"
+                    {% else %}
+                        class="nav-item mr-3"
+                    {% endif %}
+                >
+                    <a class="nav-link" href="{% url 'dashboard' %}">
+                    Welcome {{ user.username }} (Dashboard)</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                        Logout
+                    </a>
+                    <form action="{% url 'logout' %}" method="POST" id="logout">
+                        {% csrf_token %}
+                        <input type="hidden">
+                    </form>
+                </li>
+            {% else %}
+                <li 
+                    {% if 'register' in request.path %}
+                        class="nav-item active mr-3"
+                    {% else %}
+                        class="nav-item mr-3"
+                    {% endif %}
+                >
+                    <a class="nav-link" href="{% url 'register' %}">
+                    Register</a>
+                </li>
+                <li 
+                    {% if 'login' in request.path %}
+                        class="nav-item active mr-3"
+                    {% else %}
+                        class="nav-item mr-3"
+                    {% endif %}
+                >
+                    <a class="nav-link" href="{% url 'login' %}">
+                    <i class="fas fa-sign-in-alt"></i>
+
+                    Login</a>
+                </li>
+                {% endif %}
+                <li
+                    {% if 'contact' in request.path %}
+                        class="nav-item active mr-3"
+                    {% else %}
+                        class="nav-item mr-3"
+                    {% endif %}
+                >
+                    <a href="">Contact Us</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div style="margin-top: 20px;">
+    {% include 'partials/_alerts.html' %}
+</div>

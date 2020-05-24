@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+            <div class="left-content">
+                <div class="inside-content">
+                    <h4 style="text-align: center;">Login Here</h4>
+                    <br>
+                    <img src="{% static 'img/Teacher.png' %}" width="275" height="350" class="sawa" style="padding-top: 35px;">
+                    <div style="float: right; padding-left: 35px;">
+                            <br><br>
+                                <form action="{% url 'login' %}" method="POST">
+                                    {% csrf_token %}
+                                <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                <label for="password2">Password</label>
+                                <input type="password" name="password" class="form-control" required>
+                                </div>
+                                <br>
+                                <input type="hidden" name="teacher" class="form-control" value="True"> 
+                                <input type="submit" value="Login" class="btn btn-secondary btn-block button-alt">
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+            <div class="left-content" style="background-color: rgb(230, 228, 228)">
+                <div class="inside-content" style="position: absolute; left: 0; right: 0; top: 44%;">
+                    <h4 style="text-align: center; color: black;">Create Account</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5"><img src="{% static 'img/register.png' %}" width="200" height="250" class="sawa"  style="padding-top: 35px; float: left;"></div>
+                        <div class="col-md-5"><h4 style="text-align: center; color: #517df0; padding-top: 90px;">Don't have an account ? Register <a href="{% url 'register' %}">here</a></h4></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

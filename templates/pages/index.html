@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner">
+    <div class="container-fluid">
+        <div class="col-md-5 col-sm-5 col-xs-12">
+            <div class="left-content">
+                <div class="inside-content">
+                    <h4>Try to capture your full face :)</h4>
+                    <div>
+                        <video id="video" class="imgborder" width="475" height="366"></video>
+                        <a href="#" id="capture" class="button-alt">Take Photo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-12">
+            <div class="center-image">
+                <div class="inside-content">
+                    <img src="{% static 'img/forward.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-12">
+            <div class="right-content">
+                <div class="canphoto">
+                    <canvas id="canvas" width="475" height="366"></canvas>
+                    {% if names %}    
+                        <img id="photo" class="imgborder" src="{% static 'image.jpg' %}" width="400" height="300" alt="Photo of you">    
+                    {% else %}
+                        <img id="photo" class="imgborder" src="{% static 'img/photo.jpg' %}" width="400" height="300" alt="Photo of you">
+                    {% endif %}    
+                        <form action="{% url 'index' %}" method="POST" id="form1"> 
+                            {% csrf_token %} 
+                            <input type="hidden" name="canvasData" id="my_hidden"> 
+                            <a href="#" id="submit" class="button" onclick="save()">Submit</a>
+                            <!--<input type="submit" class="booth-capture-button" name="submit" value="submit" onclick="save()">-->
+                        </form>
+                        <script> 
+                            function save(){ 
+                                var canvas = document.getElementById('canvas'); 
+                                document.getElementById('my_hidden').value = canvas.toDataURL('image/jpg');
+                                document.forms["form1"].submit(); 
+                            }
+                        </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

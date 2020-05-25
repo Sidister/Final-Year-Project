@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from .models import Profile
+import urllib
+from .face import pi_face
 
 # Create your views here.
 def register(request):
@@ -66,10 +68,33 @@ def logout(request):
         return redirect('index')
 
 def dashboard(request):
-    user = User.objects.get(id=request.user.id)
-    if user.profile.teacher:
-        return render(request, 'accounts/dashboard_teacher.html')
+    if request.user.is_authenticated :
+        user = User.objects.get(id=request.user.id)
+        return render(request, 'accounts/dashboard_content.html')
     else:
-        return render(request, 'accounts/dashboard_student.html')
+        return redirect('index')
     
-    
+def dash_content(request, parameter):
+    if parameter=='attendance':
+        if request.method == 'POST':
+            canvasData = request.POST['canvasData']
+            data = canvasData
+            response = urllib.request.urlopen(data)
+            with open('sawa/static/image.jpg', 'wb') as f:
+                f.write(response.file.read())
+            names=pi_face.process()
+
+            context = {
+                'names' : names,
+                'parameter' : parameter
+            }
+            if len(names)>0:
+                messages.success(request, 'Attendance was marked !')
+            return render(request, 'accounts/attendance.html', context)
+
+        return render(request, 'accounts/attendance.html')
+    else:
+        context = {
+            'parameter' : parameter
+        }
+        return render(request, 'accounts/dashboard_content.html', context)

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+            <div class="left-content">
+                <div class="inside-content" style="text-align: center;">
+                    {% if user.profile.teacher %}
+                    <h4 style="text-align: center;">Teacher's Desk</h4>
+                    <img src="{% static 'img/Teacher.png' %}" width="240" height="325" class="sawa" alt="Logo" style="padding-top: 30px; padding-bottom: 20px;">
+                    <div style="padding-left: 30px;">
+                        <div class="wrapperxx">
+                            <a class="buttonxx" href="{% url "dash_content" parameter='profile' %}" value="profile">My Profile</a>
+                            <a class="buttonxx" href="{% url "dash_content" parameter='attendance' %}" value="attendance">Take Attendance</a>
+                            <a class="buttonxx" href="{% url "dash_content" parameter='subject' %}" value="subject">Add Subject</a>
+                            <a class="buttonxx" href="{% url "dash_content" parameter='record' %}" value="record">Record</a>
+                        </div>
+                        
+                    </div>
+                    {% else %}
+                    <h4 style="text-align: center;">Student's Desk</h4>
+                    <img src="{% static 'img/Student.png' %}" width="200" height="325" class="sawa" alt="Logo" style="padding-top: 30px; padding-bottom: 20px;">
+                    <div style="padding-left: 30px;">
+                        <div class="wrapperxx">
+                            <a class="buttonxx" href="{% url 'dashboard' %}" name="profile">My Profile</a>
+                            <a class="buttonxx" href="{% url 'dashboard' %}" name="timetable">Add Timetable</a>
+                            <a class="buttonxx" href="{% url 'dashboard' %}" name="subject">Add Subject</a>
+                            <a class="buttonxx" href="{% url 'dashboard' %}" name="record">Record</a>
+                        </div>
+                        
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
+            <div class="left-content" style="background-color: rgb(230, 228, 228)">
+                <div class="inside-content">
+                    <h1>{{parameter}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

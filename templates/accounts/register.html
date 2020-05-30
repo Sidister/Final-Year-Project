@@ -12,8 +12,7 @@
                     <br>
                     <img src="{% static 'img/Teacher.png' %}" width="275" height="350" class="sawa" alt="Logo" style="padding-top: 35px;">
                     <div style="float: right; padding-left: 35px;">
-                            <!-- Alerts -->
-                            {% include 'partials/_alerts.html' %}
+                            
                                 <form action="{% url 'register' %}" method="POST">
                                     {% csrf_token %}
                                 <div class="form-group">

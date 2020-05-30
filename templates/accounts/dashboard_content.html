@@ -14,22 +14,22 @@
                         <div class="wrapperxx">
                             <a class="buttonxx" href="{% url "dash_content" parameter='profile' %}" value="profile">My Profile</a>
                             <a class="buttonxx" href="{% url "dash_content" parameter='attendance' %}" value="attendance">Take Attendance</a>
-                            <a class="buttonxx" href="{% url "dash_content" parameter='subject' %}" value="subject">Add Subject</a>
+                            <a class="buttonxx" href="{% url "dash_content" parameter='timetable' %}" value="timetable">Timetable</a>
                             <a class="buttonxx" href="{% url "dash_content" parameter='record' %}" value="record">Record</a>
                         </div>
                         
                     </div>
                     {% else %}
-                    <h4 style="text-align: center;">Student's Desk</h4>
-                    <img src="{% static 'img/Student.png' %}" width="200" height="325" class="sawa" alt="Logo" style="padding-top: 30px; padding-bottom: 20px;">
-                    <div style="padding-left: 30px;">
-                        <div class="wrapperxx">
-                            <a class="buttonxx" href="{% url 'dashboard' %}" name="profile">My Profile</a>
-                            <a class="buttonxx" href="{% url 'dashboard' %}" name="timetable">Add Timetable</a>
-                            <a class="buttonxx" href="{% url 'dashboard' %}" name="subject">Add Subject</a>
-                            <a class="buttonxx" href="{% url 'dashboard' %}" name="record">Record</a>
+                    <div style="left: 25%; position: relative;">
+                        <h4 style="text-align: center;">Student's Desk</h4>
+                        <img src="{% static 'img/Student.png' %}" width="200" height="325" class="sawa" alt="Logo" style="padding-top: 30px; padding-bottom: 20px;">
+                        <div style="padding-left: 30px;">
+                            <div class="wrapperxx">
+                                <a class="buttonxx" href="{% url "dash_content" parameter='profile' %}" value="profile">My Profile</a>
+                                <a class="buttonxx" href="{% url "dash_content" parameter='timetable' %}" value="timetable">Timetable</a>
+                                <a class="buttonxx" href="{% url "dash_content" parameter='record' %}" value="record">Record</a>
+                            </div>
                         </div>
-                        
                     </div>
                     {% endif %}
                 </div>
@@ -39,7 +39,19 @@
         <div class="col-md-6" style="padding-left: 0px; padding-right: 0px;">
             <div class="left-content" style="background-color: rgb(230, 228, 228)">
                 <div class="inside-content">
-                    <h1>{{parameter}}</h1>
+                    {% if 'profile' in parameter %}
+                        <h1>Profile</h1>
+                        <div>
+                            <h4 style="color: #517df0;">Hello {{ user.username }}</h4>
+                            <h5>First Name : {{ user.first_name }}</h5>
+                            <h5>Last Name : {{ user.last_name }}</h5>
+                            <h5>Email : {{ user.email }}</h5>
+                        </div>
+                    {% elif 'timetable' in parameter %}
+                        <h1>Time Table</h1>
+                    {% elif 'record' in parameter %}
+                        <h1>Record</h1>
+                    {% endif %}
                 </div>
             </div>
         </div>
